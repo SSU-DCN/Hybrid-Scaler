@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-a
+  namespace: default
+  labels:
+    app: deploy-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-a
+  template:
+    metadata:
+      labels:
+        app: deploy-a
+    spec:
+      containers:
+      - name: deploy-a
+        image: vudinhdai2505/test-app:v5
+        resources:
+          limits:
+            cpu: "700m"
+        ports:
+        - containerPort: 5000
+      terminationGracePeriodSeconds: 2

@@ -1,0 +1,13 @@
+EPOCHS = 100
+BATCH_SIZE = 128
+NUM_UNITS = 100
+VALIDATION_SPLIT = 0.2
+N_STEPS_IN = 7
+N_STEPS_OUT = 1
+MODEL_PATH = "./model/demo-model.h5"
+SCALER_PATH = "./scaler/demo-scaler.pkl"
+#TRAIN_DATA_PATH = "./dataset/recurrent_fault.csv"
+COLLECTED_DATA_PATH = "./dataset/request.csv"
+PROMETHEUS_URL = "http://192.168.24.10:30000"
+THRESHOLD = 19
+DEPLOYMENT_NAME = "deploy-a"

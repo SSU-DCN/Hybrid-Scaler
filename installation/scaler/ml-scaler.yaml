@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: internal-kubectl
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: modify-deployment
+rules:
+  - apiGroups: ["extensions","apps"]
+    resources: ["deployments","deployments/scale"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: modify-deployment-to-sa
+subjects:
+  - kind: ServiceAccount
+    name: internal-kubectl
+roleRef:
+  kind: Role
+  name: modify-deployment
+  apiGroup: rbac.authorization.k8s.io
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ai-scaler
+  labels:
+    app: ai-scaler
+spec:
+  serviceAccountName: internal-kubectl
+  containers:
+  - name: ai-scaler
+    image: vudinhdai2505/aiscaler:v2
+    env:
+    - name: DEPLOYMENT_NAME
+      value: "deploy-a"
+    #command: ["/bin/sleep", "3650d"]
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-deploy-b
+  annotations:
+    kubernetes.io/ingress.class: "v2-nginx"
+    nginx.org/proxy-connect-timeout: "2s"
+    nginx.org/proxy-read-timeout: "2s"
+    nginx.org/proxy-send-timeout: "2s"
+spec:
+  rules:
+  - host: deployb.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service-b
+            port: 
+              number: 5000

@@ -1,0 +1,45 @@
+Run application
+
+ On master node:
+ - run deployment A:
+	cd run-app/deploymentA/
+	kubectl apply -f deploymentA.yaml
+	kubectl apply -f svc-deploymentA.yaml
+	kubectl apply -f ingress-resource-1.yaml
+
+- run deployment B:
+
+	cd run-app/deploymentB/
+	kubectl apply -f deploymentB.yaml
+	kubectl apply -f svc-deploymentB.yaml
+	kubectl apply -f ingress-resource-2.yaml
+
+- apply HPA to deploymentB
+
+	cd run-app/deploymentB/
+	kubectl apply -f hpa.yaml
+
+- apply ai-scaler to deploymentA ( any minute at second ":5-10")
+
+	cd scaler/
+	kubectl apply -f demo-scaler.yaml
+
+Run load-generator (any minute at second ":9-11")
+
+ generator1 on master node (192.168.24.10):
+	source $HOME/generator2/bin/activate
+	cd generator2/
+	locust -f longcustomshape.py
+        
+ 	access URL:  192.168.24.10:8089
+	host: http://deploya.example.com:31895    --> start swarming (any minute at second ":9-11")
+
+ generator2 on worker node (192.168.24.11):
+	source $HOME/generator1/bin/activate
+	cd generator1/
+	locust -f longcustomshape.py
+
+	access URL:  192.168.24.11:8089
+	host: http://deployb.example.com:32726    --> start swarming (any minute at second ":9-11")
+
+	

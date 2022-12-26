@@ -1,0 +1,6 @@
+tensorflow
+schedule
+sklearn
+requests
+matplotlib
+pandas

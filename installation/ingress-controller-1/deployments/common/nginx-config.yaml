@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-config
+  namespace: nginx-ingress
+data:
+  proxy-connect-timeout: "2s"
+  proxy-read-timeout: "2s"
+  proxy-send-timeout: "2s"
+  keepalive-timeout: "2s"

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-c
+  namespace: default
+  labels:
+    app: deploy-c
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-c
+  template:
+    metadata:
+      labels:
+        app: deploy-c
+    spec:
+      containers:
+      - name: deploy-c
+        image: vudinhdai2505/demo-app:latest
+        resources:
+          limits:
+            cpu: "550m"
+        ports:
+        - containerPort: 5000

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: v2-nginx-ingress 
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: v2-nginx-ingress 
+  namespace: v2-nginx-ingress
